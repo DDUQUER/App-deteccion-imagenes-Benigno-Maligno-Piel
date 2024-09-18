@@ -4,9 +4,38 @@ from tensorflow.keras.preprocessing import image
 import numpy as np
 from PIL import Image
 from tensorflow.keras.applications.efficientnet import preprocess_input
+import requests
+
+# Función para descargar archivo desde Google Drive
+def download_file_from_google_drive(file_id, destination):
+    URL = "https://drive.google.com/uc?export=download"
+    session = requests.Session()
+    response = session.get(URL, params={'id': file_id}, stream=True)
+    token = None
+    for key, value in response.cookies.items():
+        if key.startswith('GD') or key.startswith('GAPS'):
+            token = value
+            break
+    if token:
+        response = session.get(URL, params={'id': file_id, 'confirm': token}, stream=True)
+    else:
+        response = session.get(URL, params={'id': file_id}, stream=True)
+    with open(destination, "wb") as f:
+        for chunk in response.iter_content(chunk_size=32768): 
+            if chunk:
+                f.write(chunk)
+
+# ID del archivo en Google Drive (parte del enlace)
+file_id = '1FkwEZ3XZ466e9LWcY51Ibl5_9vBtSadI'  # Reemplaza esto con tu ID de archivo real
+
+# Nombre del archivo a guardar
+destination = "model_fin_EN0_6931.h5"
+
+# Descargar el archivo
+download_file_from_google_drive(file_id, destination)
 
 # Cargar el modelo de clasificación binaria
-model_binary = load_model("model_fin_EN0_6931.h5")  # Modelo binario (Benigno/Maligno)
+model_binary = load_model(destination)  # Modelo binario (Benigno/Maligno)
 
 # Función para cargar y procesar la imagen según el modelo binario
 def preprocess_image(img, target_size):
@@ -89,6 +118,7 @@ def show_detection_benigno_maligno():
 # Ejecutar la aplicación
 if __name__ == "__main__":
     main()
+
 
 
 
