@@ -103,10 +103,10 @@ def show_detection_benigno_maligno():
     st.header("Detección Lunar - Benigno o Maligno 🔬")
     st.write(
         """
-        ¿Cómo usar el aplicativo? 🤔
+        **¿Cómo usar el aplicativo? 🤔**
         Para evaluar una fotografía de una mancha cutánea, haz clic en el recuadro de abajo 📸, selecciona la imagen que deseas revisar y permite que el modelo te proporcione la predicción. Recibirás como resultado la probabilidad de que la imagen sea maligna 🧪 y, en otra línea, la predicción final del modelo 💡.
 
-        ¿Cómo funciona el modelo? 🔍
+        **¿Cómo funciona el modelo? 🔍**
         Ten en cuenta que la probabilidad total es del 100% ✅. Por ejemplo, si la probabilidad de que una imagen sea maligna es del 51% ⚠️, eso significa que la probabilidad de que sea benigna es del 49% 👍. En este caso, el modelo determinará que la lesión cutánea es maligna. El modelo fue entrenado con un criterio de elección del 50%; por lo tanto, si la probabilidad de ser maligna es inferior al 50% 🌿, se categorizará la imagen como benigna. Si es superior a este porcentaje, se clasificará como maligna 🚫.
         
         **Notas 📌:**
