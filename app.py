@@ -103,12 +103,16 @@ def show_detection_benigno_maligno():
     st.header("Detección Lunar - Benigno o Maligno 🔬")
     st.write(
         """
-        Esta página te permite detectar si una lesión en la piel es benigna o maligna.
+        ¿Cómo usar el aplicativo? 🤔
+        Para evaluar una fotografía de una mancha cutánea, haz clic en el recuadro de abajo 📸, selecciona la imagen que deseas revisar y permite que el modelo te proporcione la predicción. Recibirás como resultado la probabilidad de que la imagen sea maligna 🧪 y, en otra línea, la predicción final del modelo 💡.
+
+        ¿Cómo funciona el modelo? 🔍
+        Ten en cuenta que la probabilidad total es del 100% ✅. Por ejemplo, si la probabilidad de que una imagen sea maligna es del 51% ⚠️, eso significa que la probabilidad de que sea benigna es del 49% 👍. En este caso, el modelo determinará que la lesión cutánea es maligna. El modelo fue entrenado con un criterio de elección del 50%; por lo tanto, si la probabilidad de ser maligna es inferior al 50% 🌿, se categorizará la imagen como benigna. Si es superior a este porcentaje, se clasificará como maligna 🚫.
         
-       **Notas 📌:** 
-           - Para mejorar la precisión del modelo, intente que la mancha de piel esté centrada y ocupe la mayor parte de la imagen. No se preocupe si, al hacerlo, la calidad de la imagen se reduce. 
-           - De igual manera puede probar subir fotos en distintos angulos o posiciones de la zona afectada de tu piel para validar el resultado. 
-           - Recuerda que estos resultados son probabilisticos con un margen de error y no reempla el diagnostico final que pueda emitir un personal de salud.  
+        **Notas 📌:**
+          - Para mejorar la precisión del modelo, intenta que la mancha de piel esté centrada 🎯 y ocupe la mayor parte de la imagen 🖼️. No te preocupes si, al hacerlo, la calidad de la imagen se reduce 📉.
+          - De igual manera, puedes probar subir fotos desde distintos ángulos 📸 o posiciones de la zona afectada de tu piel para validar el resultado 🔄.
+          - Recuerda que estos resultados son probabilísticos 🔢 y tienen un margen de error ⚠️, y no reemplazan el diagnóstico final que pueda emitir un profesional de la salud 👩‍⚕️👨‍⚕️.
         """)
 
     # Subida de la imagen
