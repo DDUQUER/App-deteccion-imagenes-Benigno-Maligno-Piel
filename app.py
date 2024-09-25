@@ -59,8 +59,7 @@ def main():
     st.title("Aplicación de Detección de Lesiones en la Piel 🧐")
 
     # Barra lateral para la navegación
-    st.sidebar.image(logo_destination, caption="Logo de la aplicación", use_column_width=True)  # Mostrar el logo
-    st.sidebar.title("Navegación")
+    st.sidebar.image(logo_destination)
     menu = st.sidebar.radio("Ir a", ["Home", "Detección Lunar - Benigno Maligno"])
 
     if menu == "Home":
