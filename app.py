@@ -56,9 +56,9 @@ def predict_image_binary(img):
 
 # Función principal para la aplicación
 def main():
-    st.title("Aplicación de la Clasificación en Lesiones Cutáneas Benignas y Malignas 🧐")
+    st.title("Aplicación de Detección de Lesiones en la Piel 🧐")
 
-    # Mostrar el logo
+    # Mostrar el logo justo debajo del título
     logo = Image.open(logo_destination)
     st.image(logo, caption="Logo de la aplicación", use_column_width=True)
 
@@ -75,7 +75,7 @@ def main():
 def show_home():
     st.write(
         """
-       ### 🌟 Bienvenido a la Aplicación de Clasificación de Lesiones Cutáneas Benignas y Malignas 🌟
+       ### 🌟 Bienvenido a la Aplicación de Predicción de Lesiones Cutáneas 🌟
 
        Desarrollada como parte de un trabajo de fin de máster, esta aplicación utiliza un modelo entrenado con **10,599 imágenes dermatoscópicas** 🖼️, recopiladas en el conjunto de datos **HAM10000** ("Human Against Machine with 10000 training images"), proporcionado por la **ISIC** (International Skin Imaging Collaboration).
 
@@ -131,9 +131,6 @@ def show_detection_benigno_maligno():
 # Ejecutar la aplicación
 if __name__ == "__main__":
     main()
-
-
-
 
 
 
