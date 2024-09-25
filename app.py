@@ -26,8 +26,8 @@ def download_file_from_google_drive(file_id, destination):
                 f.write(chunk)
 
 # ID del modelo y del logo en Google Drive
-model_file_id = '1FkwEZ3XZ466e9LWcY51Ibl5_9vBtSadI'  # Reemplaza esto con tu ID de archivo real
-logo_file_id = '1cDozrnUSUxaSIwpd5q65qAMzna31GMzG'  # ID del logo
+model_file_id = '1FkwEZ3XZ466e9LWcY51Ibl5_9vBtSadI' 
+logo_file_id = '1cDozrnUSUxaSIwpd5q65qAMzna31GMzG'  
 
 # Nombres de archivos a guardar
 model_destination = "model_fin_EN0_6931.h5"
@@ -56,7 +56,7 @@ def predict_image_binary(img):
 
 # Función principal para la aplicación
 def main():
-    st.title("Aplicación de Detección de Lesiones en la Piel 🧐")
+    st.title("Clasificador de Lesiones Cutáneas: Benignas o Malignas 🧐")
 
     # Barra lateral para la navegación
     st.sidebar.image(logo_destination)
@@ -73,9 +73,9 @@ def show_home():
         """
        ### 🌟 Bienvenido a la Aplicación de Predicción de Lesiones Cutáneas 🌟
 
-       Desarrollada como parte de un trabajo de fin de máster, esta aplicación utiliza un modelo entrenado con **10,599 imágenes dermatoscópicas** 🖼️, recopiladas en el conjunto de datos **HAM10000** ("Human Against Machine with 10000 training images"), proporcionado por la **ISIC** (International Skin Imaging Collaboration).
+       Desarrollada como parte de un trabajo de fin de máster, esta aplicación utiliza un modelo entrenado con **10,599 imágenes dermatoscópicas** 🖼️, recopiladas de la **ISIC** (International Skin Imaging Collaboration).
 
-       Este modelo se basa en técnicas avanzadas de **Deep Learning** 🧠 para ayudar a identificar de manera precisa si una lesión cutánea es **benigna** o **maligna** 🔎. Sin embargo, es importante aclarar que **los resultados de esta aplicación no constituyen un diagnóstico médico**. Este sistema utiliza **aprendizaje automático** para generar aproximaciones y predicciones probabilísticas, pero no debe sustituir la evaluación de un profesional de la salud 👩‍⚕️👨‍⚕️.
+       Este modelo se desarrolló con técnicas avanzadas de **Deep Learning** 🧠 para ayudar a identificar si una lesión cutánea es **benigna** o **maligna** 🔎. Sin embargo, es importante aclarar que **los resultados de esta aplicación no constituyen un diagnóstico médico**. Este sistema utiliza **aprendizaje automático** para generar aproximaciones y predicciones probabilísticas, pero no debe sustituir la evaluación de un profesional de la salud 👩‍⚕️👨‍⚕️.
 
        ### Clasificación de Lesiones Cutáneas🔎
 
@@ -92,7 +92,7 @@ def show_home():
           - DF (Dermatofibroma)
           - NV (Nevus Melanocítico)
 
-       **Nota 📌:** Las lesiones vasculares se clasificaron como malignas, aunque se sabe que algunas pueden ser benignas. Esta clasificación se realiza con el fin de disminuir los casos de falsos negativos (aquellos que el modelo clasifica como benignos pero que son malignos).
+       **Nota 📌:** Las lesiones vasculares (VASC) se clasificaron como malignas, aunque se sabe que algunas pueden ser benignas. Esta clasificación se realiza con el fin de disminuir los casos de falsos negativos (aquellos que el modelo clasifica como benignos pero que son malignos).
 
        ✨ Esperamos que esta herramienta te sea de gran utilidad y contribuya a una mejor comprensión de las lesiones cutáneas. ¡Gracias por visitarnos! 🌈
         """
@@ -105,7 +105,10 @@ def show_detection_benigno_maligno():
         """
         Esta página te permite detectar si una lesión en la piel es benigna o maligna.
         
-        Nota 📌: Para mejorar la precisión del modelo, intente que la mancha de piel esté centrada y ocupe la mayor parte de la imagen. No se preocupe si, al hacerlo, la calidad de la imagen se reduce. 
+       **Notas 📌:** 
+           - Para mejorar la precisión del modelo, intente que la mancha de piel esté centrada y ocupe la mayor parte de la imagen. No se preocupe si, al hacerlo, la calidad de la imagen se reduce. 
+           - De igual manera puede probar subir fotos en distintos angulos o posiciones de la zona afectada de tu piel para validar el resultado. 
+           - Recuerda que estos resultados son probabilisticos con un margen de error y no reempla el diagnostico final que pueda emitir un personal de salud.  
         """)
 
     # Subida de la imagen
