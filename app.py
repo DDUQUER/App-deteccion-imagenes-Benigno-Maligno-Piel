@@ -25,32 +25,29 @@ def download_file_from_google_drive(file_id, destination):
             if chunk:
                 f.write(chunk)
 
-# ID del modelo y del logo en Google Drive
-model_file_id = '1FkwEZ3XZ466e9LWcY51Ibl5_9vBtSadI'  # Reemplaza esto con tu ID de archivo real
-logo_file_id = '1cDozrnUSUxaSIwpd5q65qAMzna31GMzG'  # ID del logo
+# ID del archivo en Google Drive (parte del enlace)
+file_id = '1FkwEZ3XZ466e9LWcY51Ibl5_9vBtSadI'  # Reemplaza esto con tu ID de archivo real
 
-# Nombres de archivos a guardar
-model_destination = "model_fin_EN0_6931.h5"
-logo_destination = "PixelDerm_logo.png"
+# Nombre del archivo a guardar
+destination = "model_fin_EN0_6931.h5"
 
-# Descargar el modelo
-download_file_from_google_drive(model_file_id, model_destination)
-# Descargar el logo
-download_file_from_google_drive(logo_file_id, logo_destination)
+# Descargar el archivo
+download_file_from_google_drive(file_id, destination)
 
 # Cargar el modelo de clasificación binaria
-model_binary = load_model(model_destination)
+model_binary = load_model(destination)  # Modelo binario (Benigno/Maligno)
 
-# Funciones para procesar imágenes y realizar predicciones
+# Función para cargar y procesar la imagen según el modelo binario
 def preprocess_image(img, target_size):
-    img = img.resize(target_size)
+    img = img.resize(target_size)  # Ajustar el tamaño de la imagen según el modelo
     img_array = image.img_to_array(img)
-    img_array = np.expand_dims(img_array, axis=0)
-    img_array = preprocess_input(img_array)
+    img_array = np.expand_dims(img_array, axis=0)  # Añadir una dimensión extra para el lote (batch)
+    img_array = preprocess_input(img_array)  # Normalizar la imagen
     return img_array
 
+# Función para realizar la predicción con el modelo binario
 def predict_image_binary(img):
-    processed_image = preprocess_image(img, (256, 256))
+    processed_image = preprocess_image(img, (256, 256))  # Tamaño 256x256 para el modelo binario
     prediction = model_binary.predict(processed_image)
     return prediction
 
@@ -59,9 +56,10 @@ def main():
     st.title("Aplicación de Detección de Lesiones en la Piel 🧐")
 
     # Barra lateral para la navegación
-    st.sidebar.image(logo_destination)
+    st.sidebar.title("Navegación")
     menu = st.sidebar.radio("Ir a", ["Home", "Detección Lunar - Benigno Maligno"])
 
+    # Condicionales para cada página
     if menu == "Home":
         show_home()
     elif menu == "Detección Lunar - Benigno Maligno":
@@ -71,30 +69,23 @@ def main():
 def show_home():
     st.write(
         """
-       ### 🌟 Bienvenido a la Aplicación de Predicción de Lesiones Cutáneas 🌟
+        Bienvenido a la aplicación de predicción de lesiones cutáneas, desarrollada como parte de un trabajo de fin de máster. 
+        Este modelo fue entrenado utilizando técnicas avanzadas de Deep Learning para ayudar a identificar de manera precisa si una lesión cutánea es benigna o maligna.
 
-       Desarrollada como parte de un trabajo de fin de máster, esta aplicación utiliza un modelo entrenado con **10,599 imágenes dermatoscópicas** 🖼️, recopiladas en el conjunto de datos **HAM10000** ("Human Against Machine with 10000 training images"), proporcionado por la **ISIC** (International Skin Imaging Collaboration).
+        Como base de datos principal, se empleó el conjunto de datos HAM10000 ("Human Against Machine with 10000 training images"), 
+        recopilado por la ISIC (International Skin Imaging Collaboration). Se recopilaron 10,599 imágenes dermatoscópicas clasificadas en 7 tipos de lesiones cutáneas.
 
-       Este modelo se basa en técnicas avanzadas de **Deep Learning** 🧠 para ayudar a identificar de manera precisa si una lesión cutánea es **benigna** o **maligna** 🔎. Sin embargo, es importante aclarar que **los resultados de esta aplicación no constituyen un diagnóstico médico**. Este sistema utiliza **aprendizaje automático** para generar aproximaciones y predicciones probabilísticas, pero no debe sustituir la evaluación de un profesional de la salud 👩‍⚕️👨‍⚕️.
+        En el proceso de modelado, las clases originales del dataset fueron recategorizadas en dos grandes grupos: benigno y maligno, de la siguiente forma:
 
-       ### Clasificación de Lesiones Cutáneas🔎
+        - **AKIEC (Queratinosis Actínica)**: Maligno.
+        - **BCC (Carcinoma de Células Basales)**: Maligno.
+        - **BKL (Queratosis Benigna)**: Benigno.
+        - **DF (Dermatofibroma)**: Benigno.
+        - **MEL (Melanoma)**: Maligno.
+        - **NV (Nevus Melanocítico)**: Benigno.
+        - **VASC (Lesiones Vasculares)**: Maligno (para minimizar el riesgo de falsos negativos).
 
-       La reclasificación de los datos para el entrenamiento del modelo se realizaron de la siguiente manera:
-
-       **Maligno:**
-          - AKIEC (Queratinosis Actínica)
-          - BCC (Carcinoma de Células Basales)
-          - MEL (Melanoma)
-          - VASC (Lesiones Vasculares)
-
-       **Benigno:**
-          - BKL (Queratosis Benigna)
-          - DF (Dermatofibroma)
-          - NV (Nevus Melanocítico)
-
-       **Nota 📌:** Las lesiones vasculares se clasificaron como malignas, aunque se sabe que algunas pueden ser benignas. Esta clasificación se realiza con el fin de disminuir los casos de falsos negativos (aquellos que el modelo clasifica como benignos pero que son malignos).
-
-       ✨ Esperamos que esta herramienta te sea de gran utilidad y contribuya a una mejor comprensión de las lesiones cutáneas. ¡Gracias por visitarnos! 🌈
+        Esperamos que esta herramienta sea de utilidad.
         """
     )
 
@@ -105,7 +96,7 @@ def show_detection_benigno_maligno():
         """
         Esta página te permite detectar si una lesión en la piel es benigna o maligna.
         
-        Nota 📌: Para mejorar la precisión del modelo, intente que la mancha de piel esté centrada y ocupe la mayor parte de la imagen. No se preocupe si, al hacerlo, la calidad de la imagen se reduce. 
+        Nota📌: Para mejorar la precisión del modelo, intente que la mancha de piel esté centrada y ocupe la mayor parte de la imagen. No se preocupe si, al hacerlo, la calidad de la imagen se reduce. 
         """)
 
     # Subida de la imagen
@@ -127,7 +118,5 @@ def show_detection_benigno_maligno():
 # Ejecutar la aplicación
 if __name__ == "__main__":
     main()
-
-
 
 
