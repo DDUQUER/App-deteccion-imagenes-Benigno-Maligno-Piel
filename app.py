@@ -69,23 +69,30 @@ def main():
 def show_home():
     st.write(
         """
-        Bienvenido a la aplicación de predicción de lesiones cutáneas, desarrollada como parte de un trabajo de fin de máster. 
-        Este modelo fue entrenado utilizando técnicas avanzadas de Deep Learning para ayudar a identificar de manera precisa si una lesión cutánea es benigna o maligna.
+       ### 🌟 Bienvenido a la Aplicación de Predicción de Lesiones Cutáneas 🌟
 
-        Como base de datos principal, se empleó el conjunto de datos HAM10000 ("Human Against Machine with 10000 training images"), 
-        recopilado por la ISIC (International Skin Imaging Collaboration). Se recopilaron 10,599 imágenes dermatoscópicas clasificadas en 7 tipos de lesiones cutáneas.
+       Desarrollada como parte de un trabajo de fin de máster, esta aplicación utiliza un modelo entrenado con **10,599 imágenes dermatoscópicas** 🖼️, recopiladas en el conjunto de datos **HAM10000** ("Human Against Machine with 10000 training images"), proporcionado por la **ISIC** (International Skin Imaging Collaboration).
 
-        En el proceso de modelado, las clases originales del dataset fueron recategorizadas en dos grandes grupos: benigno y maligno, de la siguiente forma:
+       Este modelo se basa en técnicas avanzadas de **Deep Learning** 🧠 para ayudar a identificar de manera precisa si una lesión cutánea es **benigna** o **maligna** 🔎. Sin embargo, es importante aclarar que **los resultados de esta aplicación no constituyen un diagnóstico médico**. Este sistema utiliza **aprendizaje automático** para generar aproximaciones y predicciones probabilísticas, pero no debe sustituir la evaluación de un profesional de la salud 👩‍⚕️👨‍⚕️.
 
-        - **AKIEC (Queratinosis Actínica)**: Maligno.
-        - **BCC (Carcinoma de Células Basales)**: Maligno.
-        - **BKL (Queratosis Benigna)**: Benigno.
-        - **DF (Dermatofibroma)**: Benigno.
-        - **MEL (Melanoma)**: Maligno.
-        - **NV (Nevus Melanocítico)**: Benigno.
-        - **VASC (Lesiones Vasculares)**: Maligno (para minimizar el riesgo de falsos negativos).
+       ### Clasificación de Lesiones Cutáneas🔎
 
-        Esperamos que esta herramienta sea de utilidad.
+       La reclasificación de los datos para el entenamiento del modelo se realizaron de la siguiente manera:
+
+       **Maligno:**
+          - AKIEC (Queratinosis Actínica)
+          - BCC (Carcinoma de Células Basales)
+          - MEL (Melanoma)
+          - VASC (Lesiones Vasculares)
+
+       **Benigno:**
+          - BKL (Queratosis Benigna)
+          - DF (Dermatofibroma)
+          - NV (Nevus Melanocítico)
+
+       **Nota 📌:** Las lesiones vasculares se clasificaron como malignas, aunque se sabe que algunas pueden ser benignas. Esta clasificación se realiza con el fin de disminuir los casos de falsos negativos (aquellos que el modelo clasifica como benignos pero que son malignos).
+
+       ✨ Esperamos que esta herramienta te sea de gran utilidad y contribuya a una mejor comprensión de las lesiones cutáneas. ¡Gracias por visitarnos! 🌈
         """
     )
 
@@ -96,7 +103,7 @@ def show_detection_benigno_maligno():
         """
         Esta página te permite detectar si una lesión en la piel es benigna o maligna.
         
-        Nota📌: Para mejorar la precisión del modelo, intente que la mancha de piel esté centrada y ocupe la mayor parte de la imagen. No se preocupe si, al hacerlo, la calidad de la imagen se reduce. 
+        Nota 📌: Para mejorar la precisión del modelo, intente que la mancha de piel esté centrada y ocupe la mayor parte de la imagen. No se preocupe si, al hacerlo, la calidad de la imagen se reduce. 
         """)
 
     # Subida de la imagen
