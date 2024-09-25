@@ -56,7 +56,7 @@ def predict_image_binary(img):
 
 # Función principal para la aplicación
 def main():
-    st.title("Clasificador de Lesiones Cutáneas: Benignas o Malignas 🧐")
+    st.title("Clasificador de Lesiones Cutáneas: Benignas - Malignas 🧐")
 
     # Barra lateral para la navegación
     st.sidebar.image(logo_destination)
@@ -71,7 +71,7 @@ def main():
 def show_home():
     st.write(
         """
-       ### 🌟 Bienvenido a la Aplicación de Predicción de Lesiones Cutáneas 🌟
+       ### 🌟 Bienvenido a la Aplicación de Clasificación de Lesiones Cutáneas Benignas - Malignas. 🌟
 
        Desarrollada como parte de un trabajo de fin de máster, esta aplicación utiliza un modelo entrenado con **10,599 imágenes dermatoscópicas** 🖼️, recopiladas de la **ISIC** (International Skin Imaging Collaboration).
 
