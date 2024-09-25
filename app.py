@@ -58,11 +58,8 @@ def predict_image_binary(img):
 def main():
     st.title("Aplicación de Detección de Lesiones en la Piel 🧐")
 
-    # Mostrar el logo justo debajo del título
-    logo = Image.open(logo_destination)
-    st.image(logo, caption="Logo de la aplicación", use_column_width=True)
-
     # Barra lateral para la navegación
+    st.sidebar.image(logo_destination, caption="Logo de la aplicación", use_column_width=True)  # Mostrar el logo
     st.sidebar.title("Navegación")
     menu = st.sidebar.radio("Ir a", ["Home", "Detección Lunar - Benigno Maligno"])
 
