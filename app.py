@@ -25,41 +25,47 @@ def download_file_from_google_drive(file_id, destination):
             if chunk:
                 f.write(chunk)
 
-# ID del archivo en Google Drive (parte del enlace)
-file_id = '1FkwEZ3XZ466e9LWcY51Ibl5_9vBtSadI'  # Reemplaza esto con tu ID de archivo real
+# ID del modelo y del logo en Google Drive
+model_file_id = '1FkwEZ3XZ466e9LWcY51Ibl5_9vBtSadI'  # Reemplaza esto con tu ID de archivo real
+logo_file_id = '1cDozrnUSUxaSIwpd5q65qAMzna31GMzG'  # ID del logo
 
-# Nombre del archivo a guardar
-destination = "model_fin_EN0_6931.h5"
+# Nombres de archivos a guardar
+model_destination = "model_fin_EN0_6931.h5"
+logo_destination = "PixelDerm_logo.png"
 
-# Descargar el archivo
-download_file_from_google_drive(file_id, destination)
+# Descargar el modelo
+download_file_from_google_drive(model_file_id, model_destination)
+# Descargar el logo
+download_file_from_google_drive(logo_file_id, logo_destination)
 
 # Cargar el modelo de clasificación binaria
-model_binary = load_model(destination)  # Modelo binario (Benigno/Maligno)
+model_binary = load_model(model_destination)
 
-# Función para cargar y procesar la imagen según el modelo binario
+# Funciones para procesar imágenes y realizar predicciones
 def preprocess_image(img, target_size):
-    img = img.resize(target_size)  # Ajustar el tamaño de la imagen según el modelo
+    img = img.resize(target_size)
     img_array = image.img_to_array(img)
-    img_array = np.expand_dims(img_array, axis=0)  # Añadir una dimensión extra para el lote (batch)
-    img_array = preprocess_input(img_array)  # Normalizar la imagen
+    img_array = np.expand_dims(img_array, axis=0)
+    img_array = preprocess_input(img_array)
     return img_array
 
-# Función para realizar la predicción con el modelo binario
 def predict_image_binary(img):
-    processed_image = preprocess_image(img, (256, 256))  # Tamaño 256x256 para el modelo binario
+    processed_image = preprocess_image(img, (256, 256))
     prediction = model_binary.predict(processed_image)
     return prediction
 
 # Función principal para la aplicación
 def main():
-    st.title("Aplicación de Detección de Lesiones en la Piel 🧐")
+    st.title("Aplicación de la Clasificación en Lesiones Cutáneas Benignas y Malignas 🧐")
+
+    # Mostrar el logo
+    logo = Image.open(logo_destination)
+    st.image(logo, caption="Logo de la aplicación", use_column_width=True)
 
     # Barra lateral para la navegación
     st.sidebar.title("Navegación")
     menu = st.sidebar.radio("Ir a", ["Home", "Detección Lunar - Benigno Maligno"])
 
-    # Condicionales para cada página
     if menu == "Home":
         show_home()
     elif menu == "Detección Lunar - Benigno Maligno":
@@ -69,7 +75,7 @@ def main():
 def show_home():
     st.write(
         """
-       ### 🌟 Bienvenido a la Aplicación de Predicción de Lesiones Cutáneas 🌟
+       ### 🌟 Bienvenido a la Aplicación de Clasificación de Lesiones Cutáneas Benignas y Malignas 🌟
 
        Desarrollada como parte de un trabajo de fin de máster, esta aplicación utiliza un modelo entrenado con **10,599 imágenes dermatoscópicas** 🖼️, recopiladas en el conjunto de datos **HAM10000** ("Human Against Machine with 10000 training images"), proporcionado por la **ISIC** (International Skin Imaging Collaboration).
 
@@ -77,7 +83,7 @@ def show_home():
 
        ### Clasificación de Lesiones Cutáneas🔎
 
-       La reclasificación de los datos para el entenamiento del modelo se realizaron de la siguiente manera:
+       La reclasificación de los datos para el entrenamiento del modelo se realizaron de la siguiente manera:
 
        **Maligno:**
           - AKIEC (Queratinosis Actínica)
