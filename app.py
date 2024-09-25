@@ -91,12 +91,12 @@ def show_home():
 
 # Página de Detección Lunar - Benigno/Maligno
 def show_detection_benigno_maligno():
-    st.header("Detección Lunar - Benigno o Maligno 🐱‍🏍")
+    st.header("Detección Lunar - Benigno o Maligno 🔬")
     st.write(
         """
         Esta página te permite detectar si una lesión en la piel es benigna o maligna.
         
-        Nota🎯: Para mejorar la precisión del modelo, intente que la mancha de piel esté centrada y ocupe la mayor parte de la imagen. No se preocupe si, al hacerlo, la calidad de la imagen se reduce. 
+        Nota📌: Para mejorar la precisión del modelo, intente que la mancha de piel esté centrada y ocupe la mayor parte de la imagen. No se preocupe si, al hacerlo, la calidad de la imagen se reduce. 
         """)
 
     # Subida de la imagen
